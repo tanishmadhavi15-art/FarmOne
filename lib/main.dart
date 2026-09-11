@@ -50,7 +50,25 @@ class FarmConnectApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp.router(
         title: 'FarmConnect',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff276749)), useMaterial3: true, inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder())),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff17624a), brightness: Brightness.light),
+          scaffoldBackgroundColor: const Color(0xfff7f8f5),
+          useMaterial3: true,
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xffdfe5df))),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xff17624a), width: 1.5)),
+          ),
+          cardTheme: CardThemeData(
+            margin: EdgeInsets.zero,
+            elevation: 0,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: const BorderSide(color: Color(0xffe4e9e3))),
+          ),
+          appBarTheme: const AppBarTheme(centerTitle: false, backgroundColor: Color(0xfff7f8f5), surfaceTintColor: Colors.transparent),
+        ),
         routerConfig: GoRouter(
           initialLocation: startLocation,
           // Protected routes: if there's no signed-in user, bounce to /auth
