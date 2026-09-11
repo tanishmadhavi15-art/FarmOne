@@ -14,9 +14,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-<<<<<<< HEAD
-    runApp(ChangeNotifierProvider(create: (_) => AppState(), child: const FarmConnectApp()));
-=======
     final appState = AppState();
     // Firebase keeps the user signed in across app restarts. Without this,
     // an already-logged-in user was dumped back on the auth screen every
@@ -24,7 +21,6 @@ Future<void> main() async {
     final uid = appState.authUserId;
     if (uid != null) await appState.loadProfile(uid);
     runApp(ChangeNotifierProvider.value(value: appState, child: FarmConnectApp(startLocation: uid != null && appState.user != null ? '/home' : '/auth')));
->>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e
   } catch (error) {
     runApp(FirebaseStartupError(error: error));
   }
@@ -49,46 +45,6 @@ class FirebaseStartupError extends StatelessWidget {
 }
 
 class FarmConnectApp extends StatelessWidget {
-<<<<<<< HEAD
-  const FarmConnectApp({super.key});
-  @override
-  Widget build(BuildContext context) => MaterialApp.router(
-        title: 'FarmConnect',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff176b4d), brightness: Brightness.light),
-          scaffoldBackgroundColor: const Color(0xfff4f7f1),
-          fontFamily: 'Trebuchet MS',
-          appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0, backgroundColor: Color(0xfff4f7f1)),
-          cardTheme: CardThemeData(color: Colors.white, elevation: 0, margin: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)), side: BorderSide(color: Color(0xffdce7dc))),),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xffcbd8cc))),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xffcbd8cc))),
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xff176b4d), width: 2)),
-          ),
-          filledButtonTheme: FilledButtonThemeData(style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),),
-        ),
-        routerConfig: GoRouter(
-          initialLocation: '/auth',
-          refreshListenable: context.read<AppState>(),
-          redirect: (_, state) {
-            final app = context.read<AppState>();
-            if (app.loading) return null;
-            if (app.user != null && state.uri.path == '/auth') return '/home';
-            if (app.user == null && state.uri.path != '/auth') return '/auth';
-            return null;
-          },
-          routes: [
-          GoRoute(path: '/auth', builder: (_, _) => const AuthScreen()),
-          GoRoute(path: '/home', builder: (_, _) => const HomeScreen()),
-          GoRoute(path: '/list', builder: (_, _) => const ListProduceScreen()),
-          GoRoute(path: '/my-listings', builder: (_, _) => const MyListingsScreen()),
-          GoRoute(path: '/browse', builder: (_, _) => const BrowseListingsScreen()),
-          GoRoute(path: '/orders', builder: (_, _) => const OrdersScreen()),
-          GoRoute(path: '/listing-detail', builder: (_, state) => ListingDetailScreen(listing: state.extra! as Listing)),
-=======
   const FarmConnectApp({super.key, required this.startLocation});
   final String startLocation;
   @override
@@ -125,13 +81,10 @@ class FarmConnectApp extends StatelessWidget {
                 return ListingDetailScreen(listing: listing);
               },
             ),
->>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e
           ],
         ),
       );
 }
-<<<<<<< HEAD
-=======
 
 class _ListingUnavailableScreen extends StatelessWidget {
   const _ListingUnavailableScreen();
@@ -147,4 +100,3 @@ class _ListingUnavailableScreen extends StatelessWidget {
         ),
       );
 }
->>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e
