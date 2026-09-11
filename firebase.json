@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 	"firestore": {
 		"rules": "firestore.rules"
@@ -26,3 +27,6 @@
 		}
 	}
 }
+=======
+{"flutter":{"platforms":{"android":{"default":{"projectId":"farmone-2026-0910","appId":"1:306407851745:android:017c720817910ac92d19a0","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"farmone-2026-0910","configurations":{"android":"1:306407851745:android:017c720817910ac92d19a0","ios":"1:306407851745:ios:08511a2a7e0a17102d19a0","macos":"1:306407851745:ios:08511a2a7e0a17102d19a0","web":"1:306407851745:web:123b327a6d622d902d19a0","windows":"1:306407851745:web:d4a868fd3c64cf832d19a0"}}}}}}
+>>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e

@@ -1,4 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
+=======
+    <!-- Required for Firebase Auth / Firestore / Storage network calls.
+         Debug/profile builds get INTERNET for free from the Flutter tool's
+         own debug manifest, which is why this was invisible in `flutter run`
+         but breaks a release build completely. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+>>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e
     <application
         android:label="farmconnect"
         android:name="${applicationName}"

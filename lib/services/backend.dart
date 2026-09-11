@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,23 +7,22 @@ import 'package:uuid/uuid.dart';
 import '../models/models.dart';
 
 class AuthService {
-  static const _requestTimeout = Duration(seconds: 15);
   final _auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance;
   String? get authUserId => _auth.currentUser?.uid;
 
   Future<AppUser> signUp({required String email, required String password, required String name, required UserRole role, required String phone, required String village}) async {
-    final credential = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password).timeout(_requestTimeout);
+    final credential = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password);
     final user = AppUser(uid: credential.user!.uid, name: name.trim(), role: role, phone: phone.trim(), village: village.trim());
-    await _db.collection('users').doc(user.uid).set({'uid': user.uid, 'name': user.name, 'role': role == UserRole.farmer ? 'farmer' : 'buyer', 'phone': user.phone, 'village': user.village}).timeout(_requestTimeout);
+    await _db.collection('users').doc(user.uid).set({'uid': user.uid, 'name': user.name, 'role': role == UserRole.farmer ? 'farmer' : 'buyer', 'phone': user.phone, 'village': user.village});
     return user;
   }
 
-  Future<void> signIn(String email, String password) => _auth.signInWithEmailAndPassword(email: email.trim(), password: password).timeout(_requestTimeout);
+  Future<void> signIn(String email, String password) => _auth.signInWithEmailAndPassword(email: email.trim(), password: password);
   Future<void> signOut() => _auth.signOut();
   Stream<User?> get authChanges => _auth.authStateChanges();
   Future<AppUser?> profile(String uid) async {
-    final doc = await _db.collection('users').doc(uid).get().timeout(_requestTimeout);
+    final doc = await _db.collection('users').doc(uid).get();
     return doc.exists ? AppUser.fromDoc(doc) : null;
   }
 }
@@ -40,7 +39,7 @@ class FarmRepository {
 
   Future<String> uploadPhoto(XFile file, String uid) async {
     final ref = _storage.ref('listing_photos/$uid/${_uuid.v4()}.jpg');
-    await ref.putData(await file.readAsBytes(), SettableMetadata(contentType: 'image/jpeg'));
+    await ref.putFile(File(file.path));
     return ref.getDownloadURL();
   }
 

@@ -21,4 +21,7 @@ Firebase platform configuration is intentionally not committed. `flutterfire con
 - Order states: `pending_payment`, `paid_escrow`, `delivered`, `released`, `disputed`.
 # FarmOne
 # FarmOne
+<<<<<<< HEAD
 # FarmOne_2
+=======
+>>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e

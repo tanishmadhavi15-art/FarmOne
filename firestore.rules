@@ -8,7 +8,18 @@ service cloud.firestore {
     match /listings/{listingId} {
       allow read: if signedIn();
       allow create: if signedIn() && request.resource.data.farmerId == request.auth.uid;
+<<<<<<< HEAD
       allow update: if signedIn() && (resource.data.farmerId == request.auth.uid || request.resource.data.status in ['reserved', 'sold', 'delivered']);
+=======
+      allow update: if signedIn() && (
+        resource.data.farmerId == request.auth.uid ||
+        (
+          request.auth.uid != resource.data.farmerId &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']) &&
+          request.resource.data.status in ['reserved', 'sold', 'delivered']
+        )
+      );
+>>>>>>> 7c071d1421e496099bdd5c1308300f72eaf8f22e
     }
     match /orders/{orderId} {
       allow read: if signedIn() && (resource.data.buyerId == request.auth.uid || resource.data.farmerId == request.auth.uid);
