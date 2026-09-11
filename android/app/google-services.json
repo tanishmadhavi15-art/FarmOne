@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306407851745",
+    "project_id": "farmone-2026-0910",
+    "storage_bucket": "farmone-2026-0910.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306407851745:android:017c720817910ac92d19a0",
+        "android_client_info": {
+          "package_name": "com.farmconnect.farmconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUQPkWp1etxyXJErFwunR3lcAp8NED4u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
