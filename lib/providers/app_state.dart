@@ -6,14 +6,38 @@ class AppState extends ChangeNotifier {
   final auth = AuthService();
   String? get authUserId => auth.authUserId;
   AppUser? user;
-  bool loading = false;
+  bool loading = true;
+
+  AppState() {
+    auth.authChanges.listen((firebaseUser) async {
+      if (firebaseUser == null) {
+        user = null;
+        loading = false;
+        notifyListeners();
+      } else {
+        try {
+          await loadProfile(firebaseUser.uid);
+        } catch (_) {
+          user = null;
+        }
+        loading = false;
+        notifyListeners();
+      }
+    });
+  }
 
   Future<void> loadProfile(String uid) async {
     loading = true;
     notifyListeners();
-    user = await auth.profile(uid);
-    loading = false;
-    notifyListeners();
+    try {
+      user = await auth.profile(uid);
+    } catch (_) {
+      user = null;
+      rethrow;
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
   }
 
   void setUser(AppUser value) {

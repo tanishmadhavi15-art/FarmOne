@@ -43,8 +43,33 @@ class FarmConnectApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp.router(
         title: 'FarmConnect',
-        theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff276749)), useMaterial3: true, inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder())),
-        routerConfig: GoRouter(initialLocation: '/auth', routes: [
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff176b4d), brightness: Brightness.light),
+          scaffoldBackgroundColor: const Color(0xfff4f7f1),
+          fontFamily: 'Trebuchet MS',
+          appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0, backgroundColor: Color(0xfff4f7f1)),
+          cardTheme: CardThemeData(color: Colors.white, elevation: 0, margin: EdgeInsets.zero, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)), side: BorderSide(color: Color(0xffdce7dc))),),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xffcbd8cc))),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xffcbd8cc))),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: Color(0xff176b4d), width: 2)),
+          ),
+          filledButtonTheme: FilledButtonThemeData(style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),),
+        ),
+        routerConfig: GoRouter(
+          initialLocation: '/auth',
+          refreshListenable: context.read<AppState>(),
+          redirect: (_, state) {
+            final app = context.read<AppState>();
+            if (app.loading) return null;
+            if (app.user != null && state.uri.path == '/auth') return '/home';
+            if (app.user == null && state.uri.path != '/auth') return '/auth';
+            return null;
+          },
+          routes: [
           GoRoute(path: '/auth', builder: (_, _) => const AuthScreen()),
           GoRoute(path: '/home', builder: (_, _) => const HomeScreen()),
           GoRoute(path: '/list', builder: (_, _) => const ListProduceScreen()),
@@ -52,6 +77,7 @@ class FarmConnectApp extends StatelessWidget {
           GoRoute(path: '/browse', builder: (_, _) => const BrowseListingsScreen()),
           GoRoute(path: '/orders', builder: (_, _) => const OrdersScreen()),
           GoRoute(path: '/listing-detail', builder: (_, state) => ListingDetailScreen(listing: state.extra! as Listing)),
-        ]),
+          ],
+        ),
       );
 }
